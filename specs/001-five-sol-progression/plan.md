@@ -46,15 +46,7 @@ Every run ends with the **Flight Recorder Debrief** (timeline chart, auto-detect
 specs/001-five-sol-progression/
 ├── spec.md              # Feature specification (Mission 1 "August 1972" hybrid game)
 ├── plan.md              # Implementation plan & technical architecture (this file)
-├── research.md          # Phase 0: Hybrid view state machine, Flight Recorder causal engine, Web Audio
-├── data-model.md        # Phase 1: CONFIG schema, Map/Station/NPC entities, Crew-Day math, Flight Recorder log
-├── quickstart.md        # Phase 1: Playtest & verification checklist (Sol 1–3, Storm Rush, Mobile)
-├── contracts/           # Phase 1: JSON schema & module contracts
-│   ├── scenario-schema.json
-│   └── game-engine-api.md
-├── checklists/
-│   └── requirements.md  # Quality checklist
-└── tasks.md             # Phase 2: Actionable, dependency-ordered build tasks
+└── tasks.md             # Actionable, dependency-ordered build tasks
 ```
 
 ### Source Code (repository root)
