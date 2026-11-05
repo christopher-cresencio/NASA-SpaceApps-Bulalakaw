@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Five Sols at Bulalakaw // Mars Outpost Survival</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bunker-wrapper">
+    <!-- Top Campaign Navigation: Sol Selector + Judge Tools + Audio -->
+    <nav class="campaign-nav">
+      <div class="sol-tabs" id="sol-tabs">
+        <!-- Dynamically populated Sol 1..5 buttons with locked/unlocked states -->
+      </div>
+      <div class="campaign-actions">
+        <button id="audio-toggle-btn" class="nav-btn" title="Toggle Sound Effects">🔊 Sound ON</button>
+        <button id="judge-unlock-btn" class="nav-btn judge-btn" title="Instantly unlock all 5 Sols for judges">⚡ Judge Demo: Unlock All Sols</button>
+        <button id="reset-campaign-btn" class="nav-btn reset-btn" title="Reset campaign progress to Sol 1">↺ Reset</button>
+      </div>
+    </nav>
+
+    <!-- Sol Briefing Banner -->
+    <section class="sol-briefing-strip" id="sol-briefing-strip">
+      <div class="briefing-header">
+        <span class="sol-pill" id="brief-sol-tag">SOL 1 / 5</span>
+        <h2 id="brief-sol-title">Sol 1: The Night Freeze</h2>
+        <span class="briefing-hazard-tag" id="brief-hazard-tag">HAZARDS: NIGHT FREEZE (-60°C)</span>
+      </div>
+      <p class="briefing-text" id="brief-text">
+        Cmdr. Reyes: 'First shift at Jezero Crater! It is freezing outside at -60°C. Keep our sweet potatoes alive in CAM 03, but huwag ubusin ang battery sa heaters bago mag-sunrise!'
+      </p>
+    </section>
+
+    <!-- Top FNAF-Style HUD Bar -->
+    <header class="hud-top">
+      <div class="power-module">
+        <div class="power-readout">
+          <span class="hud-label">BATTERY LEFT</span>
+          <strong id="battery-pct" class="big-digit">100%</strong>
+        </div>
+        <div class="usage-box">
+          <span class="hud-label">USAGE:</span>
+          <div id="usage-bars" class="usage-bars">
+            <span class="u-bar active-green"></span>
+            <span class="u-bar"></span>
+            <span class="u-bar"></span>
+            <span class="u-bar"></span>
+            <span class="u-bar"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="station-title">
+        <span class="philsa-tag">PHILSA – NASA JOINT EXPEDITION</span>
+        <h1>OUTPOST BULALAKAW COMMAND DESK</h1>
+      </div>
+
+      <div class="clock-module">
+        <div id="shift-clock" class="clock-time">12:00 AM</div>
+        <div class="clock-sub" id="shift-sol-indicator">SURVIVE UNTIL 6:00 AM (SOL 1)</div>
+      </div>
+    </header>
+
+    <!-- Main Desk Layout: Left = CCTV Monitor, Right = Breakers & Camera Map -->
+    <main class="desk-grid">
+      <!-- CCTV Monitor Viewport -->
+      <section class="cctv-frame">
+        <div id="crt-screen" class="crt-screen">
+          <div class="scanlines"></div>
+
+          <!-- Camera Header Overlay -->
+          <div class="cam-overlay-top">
+            <span class="rec-dot">● REC</span>
+            <span id="cam-title">CAM 01 — SOLAR ARRAY & DUST RADAR</span>
+            <span id="cam-status-pill" class="cam-pill nominal">NOMINAL</span>
+          </div>
+
+          <!-- Visual Scene Inside the Camera -->
+          <div id="cam-scene" class="cam-scene">
+            <!-- Dynamically rendered room graphics & interactive buttons -->
+          </div>
+
+          <!-- Bottom Telemetry Strip Inside Monitor -->
+          <div class="cam-overlay-bottom">
+            <div class="mini-stat">
+              <span>🫁 O₂ AIR:</span>
+              <div class="mini-bar"><div id="bar-o2" class="mini-fill"></div></div>
+              <strong id="val-o2">100%</strong>
+            </div>
+            <div class="mini-stat">
+              <span>🌱 CROPS TEMP:</span>
+              <div class="mini-bar"><div id="bar-food" class="mini-fill"></div></div>
+              <strong id="val-food">22°C</strong>
+            </div>
+            <div class="mini-stat">
+              <span>🛡️ RADIATION SAFE:</span>
+              <div class="mini-bar"><div id="bar-rad" class="mini-fill"></div></div>
+              <strong id="val-rad">100%</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Control Panel: Camera Map + Physical Breaker Switches -->
+      <aside class="control-console">
+        <!-- Camera Map Selector -->
+        <div class="console-section">
+          <h2>📹 CAMERA MONITOR MAP</h2>
+          <p class="console-hint">Watch for <span class="warn-text">[!]</span> alerts in each sector</p>
+          <div class="cam-map-grid">
+            <button class="cam-btn active" data-cam="1" id="btn-cam-1">
+              <span class="cam-code">CAM 01</span>
+              <span class="cam-name">Solar & Dust</span>
+              <span class="alert-badge hidden" id="alert-cam-1">!</span>
+            </button>
+            <button class="cam-btn" data-cam="2" id="btn-cam-2">
+              <span class="cam-code">CAM 02</span>
+              <span class="cam-name">O₂ Scrubber</span>
+              <span class="alert-badge hidden" id="alert-cam-2">!</span>
+            </button>
+            <button class="cam-btn" data-cam="3" id="btn-cam-3">
+              <span class="cam-code">CAM 03</span>
+              <span class="cam-name">Greenhouse</span>
+              <span class="alert-badge hidden" id="alert-cam-3">!</span>
+            </button>
+            <button class="cam-btn" data-cam="4" id="btn-cam-4">
+              <span class="cam-code">CAM 04</span>
+              <span class="cam-name">Blast Shield</span>
+              <span class="alert-badge hidden" id="alert-cam-4">!</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Physical Desk Switches (FNAF Door/Light Style) -->
+        <div class="console-section">
+          <h2>⚡ DESK BREAKER SWITCHES</h2>
+          <p class="console-hint">Warning: Every active switch drains Battery faster!</p>
+
+          <div class="breaker-list">
+            <button id="toggle-shutter" class="breaker-btn">
+              <div class="breaker-info">
+                <strong>🛡️ LEAD BLAST SHUTTER</strong>
+                <span>Blocks radiation storms (+2 Power Drain)</span>
+              </div>
+              <span id="state-shutter" class="switch-pill off">OPEN</span>
+            </button>
+
+            <button id="toggle-heater" class="breaker-btn">
+              <div class="breaker-info">
+                <strong>🔥 GREENHOUSE HEATERS</strong>
+                <span>Stops crops from freezing (+1 Power Drain)</span>
+              </div>
+              <span id="state-heater" class="switch-pill off">OFF</span>
+            </button>
+
+            <button id="toggle-scrubber" class="breaker-btn">
+              <div class="breaker-info">
+                <strong>💨 TURBO O₂ SCRUBBER</strong>
+                <span>Pumps fresh oxygen (+1 Power Drain)</span>
+              </div>
+              <span id="state-scrubber" class="switch-pill off">IDLE</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Shift Controls -->
+        <div class="console-footer">
+          <button id="start-shift-btn" class="start-btn">▶ START NIGHT SHIFT</button>
+        </div>
+      </aside>
+    </main>
+
+    <!-- End of Shift / Jumpscare / NASA Science Modal -->
+    <div id="outcome-modal" class="modal-backdrop hidden">
+      <div class="modal-card">
+        <div id="modal-badge" class="modal-badge">MISSION REPORT</div>
+        <h2 id="modal-title">6:00 AM — SHIFT SURVIVED!</h2>
+        <p id="modal-desc"></p>
+        <div class="nasa-box">
+          <span class="nasa-tag">🧠 REAL NASA SCIENCE PAYOFF</span>
+          <p id="modal-nasa-fact"></p>
+        </div>
+        <div class="modal-actions">
+          <button id="proceed-sol-btn" class="start-btn proceed-btn hidden">🚀 PROCEED TO SOL <span id="next-sol-num">2</span></button>
+          <button id="restart-btn" class="start-btn">🔄 RETRY THIS SOL</button>
+          <button id="menu-btn" class="btn-secondary">📋 RETURN TO BRIEFING</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
