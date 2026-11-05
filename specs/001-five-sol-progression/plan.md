@@ -49,17 +49,6 @@ specs/001-five-sol-progression/
 └── tasks.md             # Actionable, dependency-ordered build tasks
 ```
 
-### Source Code (repository root)
-
-```text
-.
-├── index.html           # Viewport shell: HUD, Top-Down Canvas, Mini-Game Drawer, FNAF Console, Flight Recorder, Codex/Sources modals, Touch Controls
-├── style.css            # Martian ochre/teal palette, FNAF dark CRT console, mini-game touch widgets, responsive landscape mobile layout, a11y toggles
-├── app.js               # Top-of-file CONFIG object + 2D Map/Room Engine + NPC AI + 8 Mini-Games + FNAF Console + Storm Rush + Flight Recorder + Web Audio
-├── scenarios.json       # External JSON mirror of CONFIG & Mission 1 ("August 1972") Sol 1–3 schedules for Denise & Raindel
-└── README.md            # Team Bulalakaw play guide, placeholder audit list, and NASA sources summary
-```
-
 ## Complexity Tracking
 
 *Scope is intentionally locked to **Mission 1 ("August 1972", 3 Sols)** with 8 working stations and procedural 2D art/sound so the team delivers one complete, polished experience rather than ten half-working features.*
